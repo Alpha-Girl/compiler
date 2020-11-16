@@ -74,7 +74,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "config/expr.y" /* yacc.c:1909  */
+#line 14 "config/expr1-s2.y" /* yacc.c:1909  */
 
    float val;
    char *op;
