@@ -37,6 +37,8 @@ int yycolumn = 1;
 "-"        { debug("-"); yylval.op = "-"; return(MINUS);}
 "*"        { debug("*"); yylval.op = "*"; return(MULT);}
 "/"        { debug("/"); yylval.op = "/"; return(DIV);}
+"**"       { debug("**"); yylval.op = "**"; 
+             return(EXPON);}
 "("        { debug("("); return(LB);}
 ")"        { debug(")"); return(RB);}
 \n         { yycolumn = 1; debug(""); return(EOL);}
