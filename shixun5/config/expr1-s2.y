@@ -27,7 +27,7 @@ void yyerror(const char *s);
 %right EXPON
 %right UMINUS
 
-%type  <val> exp term fact highfact
+%type  <val> exp term fact highfact t
 
 %%
 input   :
@@ -47,9 +47,11 @@ term    : term MULT highfact         { $$ = $1 * $3;   }
         ;
 highfact : fact                   { $$ = $1;        }
         | MINUS fact             { $$ = -$2;       }
-fact    : NUMBER                 { $$ = $1;        }
-        | fact EXPON fact        { $$ = pow($1,$3);}
-        | LB exp RB              { $$ = $2;        }
+fact    : NUMBER t                { $$ = pow($1,$2);        }
+        | LB exp RB t             { $$ = $2;        }
+        ;
+t       : EXPON fact  {$$=$2;}
+        |               {$$=1;}
         ;
 %%
 void yyerror(const char *message)
