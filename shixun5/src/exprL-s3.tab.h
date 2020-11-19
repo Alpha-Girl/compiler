@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_SRC_EXPR_TAB_H_INCLUDED
-# define YY_YY_SRC_EXPR_TAB_H_INCLUDED
+#ifndef YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED
+# define YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -53,8 +53,7 @@ extern int yydebug;
     EXPON = 263,
     EOL = 264,
     LB = 265,
-    RB = 266,
-    UMINUS = 267
+    RB = 266
   };
 #endif
 /* Tokens.  */
@@ -67,19 +66,19 @@ extern int yydebug;
 #define EOL 264
 #define LB 265
 #define RB 266
-#define UMINUS 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 14 "config/expr.y" /* yacc.c:1909  */
+#line 55 "config/exprL-s3.y" /* yacc.c:1909  */
 
-   float val;
-   char *op;
+  struct ASTNode node;
+  float val;
+  char *op;
 
-#line 83 "src/expr.tab.h" /* yacc.c:1909  */
+#line 82 "src/exprL-s3.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -106,4 +105,4 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_SRC_EXPR_TAB_H_INCLUDED  */
+#endif /* !YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED  */

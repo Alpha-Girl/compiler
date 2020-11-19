@@ -12,7 +12,7 @@ YACC     = bison
 
 EXPRLEX  = expr
 
-all: expr expr1 exprL
+all: expr expr1 exprL-pre-s3
 
 # Generate a compiler for a simple expression language,
 # expr: the grammar is ambiguous, and uses precedence declarations
@@ -26,7 +26,7 @@ exp%:
 	$(LEX) -i -I -o $(SRC)/expr.lex.c $(CONF)/$(EXPRLEX).lex
 	$(CC) -DDEBUG -o $(BIN)/$@ $(SRC)/expr.lex.c $(SRC)/$@.tab.c -lfl -lm
 
-exprL%:
+exprL-pre-s3%:
 	mkdir -p $(SRC)
 	mkdir -p $(BIN)
 	$(YACC) -d -y -b $@ -o $(SRC)/$@.tab.c $(CONF)/$@.y

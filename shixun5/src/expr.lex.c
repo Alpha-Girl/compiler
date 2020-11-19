@@ -479,9 +479,9 @@ char *yytext;
 #line 7 "config/expr.lex"
 #include "expr.tab.h"
 #ifdef DEBUG
-#define debug(a) printf("%s", a)
+#define debug(a)
 #else
-#define debug(a) 
+#define debug(a)  printf("%s", a)
 #endif
 void yyerror(const char *);
 /* handle locations */
@@ -819,42 +819,43 @@ YY_RULE_SETUP
 case 7:
 YY_RULE_SETUP
 #line 40 "config/expr.lex"
-{ debug("**"); yylval.op = "**"; return(EXPON);}
+{ debug("**"); yylval.op = "**"; 
+             return(EXPON);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 41 "config/expr.lex"
+#line 42 "config/expr.lex"
 { debug("("); return(LB);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 42 "config/expr.lex"
+#line 43 "config/expr.lex"
 { debug(")"); return(RB);}
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 43 "config/expr.lex"
+#line 44 "config/expr.lex"
 { yycolumn = 1; debug(""); return(EOL);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 44 "config/expr.lex"
+#line 45 "config/expr.lex"
 /* throw away whitespace */
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 45 "config/expr.lex"
+#line 46 "config/expr.lex"
 { yyerror("Illegal character"); 
              return(EOL);
            }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 48 "config/expr.lex"
+#line 49 "config/expr.lex"
 ECHO;
 	YY_BREAK
-#line 858 "src/expr.lex.c"
+#line 859 "src/expr.lex.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1871,7 +1872,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 48 "config/expr.lex"
+#line 49 "config/expr.lex"
 
 
 

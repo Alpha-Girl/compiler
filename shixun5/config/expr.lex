@@ -6,9 +6,9 @@
 %{
 #include "expr.tab.h"
 #ifdef DEBUG
-#define debug(a) printf("%s", a)
+#define debug(a)
 #else
-#define debug(a) 
+#define debug(a)  printf("%s", a)
 #endif
 void yyerror(const char *);
 /* handle locations */
