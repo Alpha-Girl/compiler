@@ -62,54 +62,15 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 8 "config/exprL-s3.y" /* yacc.c:339  */
+#line 8 "config/exprL-pre.y" /* yacc.c:339  */
 
-#undef DEBUG
 #include <stdio.h>
 #include <math.h>
-#include <string.h>
 int yylex();
 void yyerror(const char *s);
 int lineno = 0;
 
-struct ASTNode{
-  char message[100];
-  float value;
-};
-char* itoa(int num,char* str,int radix)
-{/*索引表*/
-    char index[]="0123456789ABCDEF";
-    unsigned unum;/*中间变量*/
-    int i=0,j,k;
-    /*确定unum的值*/
-    if(radix==10&&num<0)/*十进制负数*/
-    {
-        unum=(unsigned)-num;
-        str[i++]='-';
-    }
-    else unum=(unsigned)num;/*其他情况*/
-    /*转换*/
-    do{
-        str[i++]=index[unum%(unsigned)radix];
-        unum/=radix;
-       }while(unum);
-    str[i]='\0';
-    /*逆序*/
-    if(str[0]=='-')
-        k=1;/*十进制负数*/
-    else
-        k=0;
-     
-    for(j=k;j<=(i-1)/2;j++)
-    {       char temp;
-        temp=str[j];
-        str[j]=str[i-1+k-j];
-        str[i-1+k-j]=temp;
-    }
-    return str;
-}
-
-#line 113 "src/exprL-s3.tab.c" /* yacc.c:339  */
+#line 74 "src/exprL-pre.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -128,9 +89,9 @@ char* itoa(int num,char* str,int radix)
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "exprL-s3.tab.h".  */
-#ifndef YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED
-# define YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED
+   by #include "exprL-pre.tab.h".  */
+#ifndef YY_YY_SRC_EXPRL_PRE_TAB_H_INCLUDED
+# define YY_YY_SRC_EXPRL_PRE_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -152,7 +113,8 @@ extern int yydebug;
     EXPON = 263,
     EOL = 264,
     LB = 265,
-    RB = 266
+    RB = 266,
+    UMINUS = 267
   };
 #endif
 /* Tokens.  */
@@ -165,19 +127,19 @@ extern int yydebug;
 #define EOL 264
 #define LB 265
 #define RB 266
+#define UMINUS 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 55 "config/exprL-s3.y" /* yacc.c:355  */
+#line 16 "config/exprL-pre.y" /* yacc.c:355  */
 
-  struct ASTNode node;
-  float val;
-  char *op;
+   float val;
+   char *op;
 
-#line 181 "src/exprL-s3.tab.c" /* yacc.c:355  */
+#line 143 "src/exprL-pre.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -204,11 +166,11 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_SRC_EXPRL_S3_TAB_H_INCLUDED  */
+#endif /* !YY_YY_SRC_EXPRL_PRE_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 212 "src/exprL-s3.tab.c" /* yacc.c:358  */
+#line 174 "src/exprL-pre.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -452,21 +414,21 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   34
+#define YYLAST   26
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  12
+#define YYNTOKENS  13
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  14
+#define YYNRULES  20
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  24
+#define YYNSTATES  35
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   266
+#define YYMAXUTOK   267
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -501,15 +463,16 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8,     9,    10,    11,    12
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    75,    75,    78,    77,    83,    84,    86,    87,    88,
-      89,    90,    91,    92,    93
+       0,    36,    36,    40,    39,    46,    47,    49,    50,    50,
+      51,    51,    52,    52,    53,    53,    54,    54,    55,    55,
+      56
 };
 #endif
 
@@ -519,7 +482,8 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NUMBER", "PLUS", "MINUS", "MULT", "DIV",
-  "EXPON", "EOL", "LB", "RB", "$accept", "input", "$@1", "line", "exp", YY_NULLPTR
+  "EXPON", "EOL", "LB", "RB", "UMINUS", "$accept", "input", "$@1", "line",
+  "exp", "$@2", "$@3", "$@4", "$@5", "$@6", "$@7", YY_NULLPTR
 };
 #endif
 
@@ -529,14 +493,14 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266
+     265,   266,   267
 };
 # endif
 
-#define YYPACT_NINF -6
+#define YYPACT_NINF -7
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-6)))
+  (!!((Yystate) == (-7)))
 
 #define YYTABLE_NINF -1
 
@@ -547,9 +511,10 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -6,     1,    -6,    15,    -6,    18,    -6,    18,    -6,    25,
-      -3,     8,    18,    18,    18,    18,    18,    -6,    -6,    -3,
-      -3,    -2,    -2,    -2
+      -7,     1,    -7,     4,    -7,    -7,    -1,    -7,     2,    -1,
+      -1,    -1,    -1,     5,    -1,     6,    -7,     8,    11,    16,
+      17,    -1,    18,    -7,    -1,    -1,    -1,    -1,    -7,    -1,
+      -7,    -7,    -7,    -7,    -7
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -557,21 +522,24 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     3,     1,     0,     7,     0,     5,     0,     4,     0,
-      12,     0,     0,     0,     0,     0,     0,     6,    14,     8,
-       9,    10,    11,    13
+       2,     3,     1,     8,     7,     5,     8,     4,     0,     8,
+       8,     8,     8,     0,     8,     0,     6,     0,     0,     0,
+       0,     8,     0,    20,     8,     8,     8,     8,    17,     8,
+       9,    11,    13,    15,    19
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -6,    -6,    -6,    -6,    -5
+      -7,    -7,    -7,    -7,    -6,    -7,    -7,    -7,    -7,    -7,
+      -7
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,     3,     8,     9
+      -1,     1,     3,     7,     8,     9,    10,    11,    12,    13,
+      14
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -579,41 +547,42 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      10,     2,    11,    14,    15,    16,    16,    19,    20,    21,
-      22,    23,    12,    13,    14,    15,    16,     0,     4,    18,
-       5,     4,     0,     5,     6,     7,     0,     0,     7,    12,
-      13,    14,    15,    16,    17
+      15,     2,     4,    17,    18,    19,    20,     4,    22,     6,
+      21,    16,    24,     5,     6,    28,    25,    23,    30,    31,
+      32,    33,    26,    34,    27,     0,    29
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,     0,     7,     6,     7,     8,     8,    12,    13,    14,
-      15,    16,     4,     5,     6,     7,     8,    -1,     3,    11,
-       5,     3,    -1,     5,     9,    10,    -1,    -1,    10,     4,
-       5,     6,     7,     8,     9
+       6,     0,     3,     9,    10,    11,    12,     3,    14,    10,
+       5,     9,     4,     9,    10,    21,     5,    11,    24,    25,
+      26,    27,     6,    29,     7,    -1,     8
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    13,     0,    14,     3,     5,     9,    10,    15,    16,
-      16,    16,     4,     5,     6,     7,     8,     9,    11,    16,
-      16,    16,    16,    16
+       0,    14,     0,    15,     3,     9,    10,    16,    17,    18,
+      19,    20,    21,    22,    23,    17,     9,    17,    17,    17,
+      17,     5,    17,    11,     4,     5,     6,     7,    17,     8,
+      17,    17,    17,    17,    17
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    12,    13,    14,    13,    15,    15,    16,    16,    16,
-      16,    16,    16,    16,    16
+       0,    13,    14,    15,    14,    16,    16,    17,    18,    17,
+      19,    17,    20,    17,    21,    17,    22,    17,    23,    17,
+      17
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     0,     3,     1,     2,     1,     3,     3,
-       3,     3,     2,     3,     3
+       0,     2,     0,     0,     3,     1,     2,     1,     0,     4,
+       0,     4,     0,     4,     0,     4,     0,     3,     0,     4,
+       3
 };
 
 
@@ -1383,80 +1352,118 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 75 "config/exprL-s3.y" /* yacc.c:1646  */
-    { lineno ++; }
-#line 1389 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 36 "config/exprL-pre.y" /* yacc.c:1646  */
+    { lineno ++; 
+	  }
+#line 1359 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 78 "config/exprL-s3.y" /* yacc.c:1646  */
-    { printf("Line %d (%d):\t", lineno++, (yylsp[0]).last_line);
+#line 40 "config/exprL-pre.y" /* yacc.c:1646  */
+    { 
+	    printf("Line %d (%d):\t", lineno++, (yylsp[0]).last_line);
 	  }
-#line 1396 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 1367 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 83 "config/exprL-s3.y" /* yacc.c:1646  */
+#line 46 "config/exprL-pre.y" /* yacc.c:1646  */
     { printf("\n");}
-#line 1402 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 1373 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 84 "config/exprL-s3.y" /* yacc.c:1646  */
-    { printf("%s  = %g at line %d\n",(yyvsp[-1].node).message,(yyvsp[-1].node).value,(yylsp[-1]).last_line);}
-#line 1408 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 47 "config/exprL-pre.y" /* yacc.c:1646  */
+    { printf(" = %g at line %d\n",(yyvsp[-1].val), (yylsp[-1]).last_line);}
+#line 1379 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 86 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[0].val);itoa((yyvsp[0].val),(yyval.node).message,10);        }
-#line 1414 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 49 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[0].val);        }
+#line 1385 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 87 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value + (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" +\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);   }
-#line 1420 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 50 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" + ");}
+#line 1391 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 88 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value - (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" -\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);     }
-#line 1426 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 50 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[-2].val) + (yyvsp[0].val);   }
+#line 1397 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 89 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value * (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" *\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
-#line 1432 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 51 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" - ");}
+#line 1403 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 90 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value / (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" /\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
-#line 1438 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 51 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[-2].val) - (yyvsp[0].val);   }
+#line 1409 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 91 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = -(yyvsp[0].node).value;char s[3]=" -\0";strcat((yyvsp[0].node).message,s);strcpy((yyval.node).message,(yyvsp[0].node).message);        }
-#line 1444 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 52 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" * ");}
+#line 1415 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 92 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = pow((yyvsp[-2].node).value,(yyvsp[0].node).value);strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[4]=" **\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message); }
-#line 1450 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 52 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[-2].val) * (yyvsp[0].val);   }
+#line 1421 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 93 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-1].node).value;strcpy((yyval.node).message,(yyvsp[-1].node).message);        }
-#line 1456 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 53 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" / ");}
+#line 1427 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 53 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[-2].val) / (yyvsp[0].val);   }
+#line 1433 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 54 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" - ");}
+#line 1439 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 54 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = -(yyvsp[0].val);       }
+#line 1445 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 55 "config/exprL-pre.y" /* yacc.c:1646  */
+    {printf(" ** ");}
+#line 1451 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 55 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = pow((yyvsp[-2].val),(yyvsp[0].val));}
+#line 1457 "src/exprL-pre.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 56 "config/exprL-pre.y" /* yacc.c:1646  */
+    { (yyval.val) = (yyvsp[-1].val);        }
+#line 1463 "src/exprL-pre.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1460 "src/exprL-s3.tab.c" /* yacc.c:1646  */
+#line 1467 "src/exprL-pre.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1691,7 +1698,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 96 "config/exprL-s3.y" /* yacc.c:1906  */
+#line 59 "config/exprL-pre.y" /* yacc.c:1906  */
 
 
 void yyerror(const char *message)
@@ -1705,72 +1712,3 @@ int main(int argc, char *argv[])
   return(0);
 }
 
-
-/*
- * expr.y : A simple yacc expression parser
- *          Based on the Bison manual example. 
- * The parser uses precedence declarations to eliminate conflicts.
- */
-/*
-%{
-#include <stdio.h>
-#include <math.h>
-int yylex();
-void yyerror(const char *s);
-int lineno = 0;
-%}
-
-%union {
-   float val;
-   char *op;
-}
-%locations
-
-%token <val> NUMBER
-%token <op> PLUS MINUS MULT DIV EXPON
-%token EOL
-%token LB RB
-
-%left  MINUS PLUS
-%left  MULT DIV
-%right EXPON
-
-%type  <val> exp
-
-%%
-input   :
-	  { lineno ++; }
-        |  
-          input
-	  { printf("Line %d (%d):\t", lineno++, @1.last_line);
-	  }
-          line
-        ;
-
-line    : EOL			{ printf("\n");}
-        | exp EOL 		{ printf(" = %g at line %d\n",$1, @1.last_line);}
-
-exp     : NUMBER                 { $$ = $1;        }
-        | exp PLUS  exp          { $$ = $1 + $3;   }
-        | exp MINUS exp          { $$ = $1 - $3;   }
-        | exp MULT  exp          { $$ = $1 * $3;   }
-        | exp DIV   exp          { $$ = $1 / $3;   }
-        | MINUS  exp %prec MINUS { $$ = -$2;       }
-        | exp EXPON exp          { $$ = pow($1,$3);}
-        | LB exp RB              { $$ = $2;        }
-        ;
-
-%%
-
-void yyerror(const char *message)
-{
-  printf("%s\n",message);
-}
-
-int main(int argc, char *argv[])
-{
-  yyparse();
-  return(0);
-}
-
-*/

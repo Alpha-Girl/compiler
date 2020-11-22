@@ -1,0 +1,714 @@
+Rules useless in parser due to conflicts
+
+    9 $@3: %empty
+
+   11 $@4: %empty
+
+   13 $@5: %empty
+
+   15 $@6: %empty
+
+   17 $@7: %empty
+
+
+State 3 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 6 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 9 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 10 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 11 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 12 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 14 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 21 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 24 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 25 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 26 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 27 conflicts: 2 shift/reduce, 3 reduce/reduce
+State 29 conflicts: 2 shift/reduce, 3 reduce/reduce
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: %empty
+
+    2 $@1: %empty
+
+    3 input: input $@1 line
+
+    4 line: EOL
+    5     | exp EOL
+
+    6 exp: NUMBER
+
+    7 $@2: %empty
+
+    8 exp: $@2 exp PLUS exp
+
+    9 $@3: %empty
+
+   10 exp: $@3 exp MINUS exp
+
+   11 $@4: %empty
+
+   12 exp: $@4 exp MULT exp
+
+   13 $@5: %empty
+
+   14 exp: $@5 exp DIV exp
+
+   15 $@6: %empty
+
+   16 exp: $@6 MINUS exp
+
+   17 $@7: %empty
+
+   18 exp: $@7 exp EXPON exp
+   19    | LB exp RB
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUMBER (258) 6
+PLUS (259) 8
+MINUS (260) 10 16
+MULT (261) 12
+DIV (262) 14
+EXPON (263) 18
+EOL (264) 4 5
+LB (265) 19
+RB (266) 19
+UMINUS (267)
+
+
+Nonterminals, with rules where they appear
+
+$accept (13)
+    on left: 0
+input (14)
+    on left: 1 3, on right: 0 3
+$@1 (15)
+    on left: 2, on right: 3
+line (16)
+    on left: 4 5, on right: 3
+exp (17)
+    on left: 6 8 10 12 14 16 18 19, on right: 5 8 10 12 14 16 18 19
+$@2 (18)
+    on left: 7, on right: 8
+$@3 (19)
+    on left: 9, on right: 10
+$@4 (20)
+    on left: 11, on right: 12
+$@5 (21)
+    on left: 13, on right: 14
+$@6 (22)
+    on left: 15, on right: 16
+$@7 (23)
+    on left: 17, on right: 18
+
+
+State 0
+
+    0 $accept: . input $end
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+State 1
+
+    0 $accept: input . $end
+    3 input: input . $@1 line
+
+    $end  shift, and go to state 2
+
+    $default  reduce using rule 2 ($@1)
+
+    $@1  go to state 3
+
+
+State 2
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 3
+
+    3 input: input $@1 . line
+
+    NUMBER  shift, and go to state 4
+    EOL     shift, and go to state 5
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    line  go to state 7
+    exp   go to state 8
+    $@2   go to state 9
+    $@3   go to state 10
+    $@4   go to state 11
+    $@5   go to state 12
+    $@6   go to state 13
+    $@7   go to state 14
+
+
+State 4
+
+    6 exp: NUMBER .
+
+    $default  reduce using rule 6 (exp)
+
+
+State 5
+
+    4 line: EOL .
+
+    $default  reduce using rule 4 (line)
+
+
+State 6
+
+   19 exp: LB . exp RB
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 15
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 7
+
+    3 input: input $@1 line .
+
+    $default  reduce using rule 3 (input)
+
+
+State 8
+
+    5 line: exp . EOL
+
+    EOL  shift, and go to state 16
+
+
+State 9
+
+    8 exp: $@2 . exp PLUS exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 17
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 10
+
+   10 exp: $@3 . exp MINUS exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 18
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 11
+
+   12 exp: $@4 . exp MULT exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 19
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 12
+
+   14 exp: $@5 . exp DIV exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 20
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 13
+
+   16 exp: $@6 . MINUS exp
+
+    MINUS  shift, and go to state 21
+
+
+State 14
+
+   18 exp: $@7 . exp EXPON exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 22
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 15
+
+   19 exp: LB exp . RB
+
+    RB  shift, and go to state 23
+
+
+State 16
+
+    5 line: exp EOL .
+
+    $default  reduce using rule 5 (line)
+
+
+State 17
+
+    8 exp: $@2 exp . PLUS exp
+
+    PLUS  shift, and go to state 24
+
+
+State 18
+
+   10 exp: $@3 exp . MINUS exp
+
+    MINUS  shift, and go to state 25
+
+
+State 19
+
+   12 exp: $@4 exp . MULT exp
+
+    MULT  shift, and go to state 26
+
+
+State 20
+
+   14 exp: $@5 exp . DIV exp
+
+    DIV  shift, and go to state 27
+
+
+State 21
+
+   16 exp: $@6 MINUS . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 28
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 22
+
+   18 exp: $@7 exp . EXPON exp
+
+    EXPON  shift, and go to state 29
+
+
+State 23
+
+   19 exp: LB exp RB .
+
+    $default  reduce using rule 19 (exp)
+
+
+State 24
+
+    8 exp: $@2 exp PLUS . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 30
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 25
+
+   10 exp: $@3 exp MINUS . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 31
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 26
+
+   12 exp: $@4 exp MULT . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 32
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 27
+
+   14 exp: $@5 exp DIV . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 33
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 28
+
+   16 exp: $@6 MINUS exp .
+
+    $default  reduce using rule 16 (exp)
+
+
+State 29
+
+   18 exp: $@7 exp EXPON . exp
+
+    NUMBER  shift, and go to state 4
+    LB      shift, and go to state 6
+
+    NUMBER    [reduce using rule 7 ($@2)]
+    NUMBER    [reduce using rule 9 ($@3)]
+    NUMBER    [reduce using rule 11 ($@4)]
+    NUMBER    [reduce using rule 13 ($@5)]
+    NUMBER    [reduce using rule 17 ($@7)]
+    MINUS     reduce using rule 7 ($@2)
+    MINUS     [reduce using rule 9 ($@3)]
+    MINUS     [reduce using rule 11 ($@4)]
+    MINUS     [reduce using rule 13 ($@5)]
+    MINUS     [reduce using rule 15 ($@6)]
+    MINUS     [reduce using rule 17 ($@7)]
+    LB        [reduce using rule 7 ($@2)]
+    LB        [reduce using rule 9 ($@3)]
+    LB        [reduce using rule 11 ($@4)]
+    LB        [reduce using rule 13 ($@5)]
+    LB        [reduce using rule 17 ($@7)]
+    $default  reduce using rule 7 ($@2)
+
+    exp  go to state 34
+    $@2  go to state 9
+    $@3  go to state 10
+    $@4  go to state 11
+    $@5  go to state 12
+    $@6  go to state 13
+    $@7  go to state 14
+
+
+State 30
+
+    8 exp: $@2 exp PLUS exp .
+
+    $default  reduce using rule 8 (exp)
+
+
+State 31
+
+   10 exp: $@3 exp MINUS exp .
+
+    $default  reduce using rule 10 (exp)
+
+
+State 32
+
+   12 exp: $@4 exp MULT exp .
+
+    $default  reduce using rule 12 (exp)
+
+
+State 33
+
+   14 exp: $@5 exp DIV exp .
+
+    $default  reduce using rule 14 (exp)
+
+
+State 34
+
+   18 exp: $@7 exp EXPON exp .
+
+    $default  reduce using rule 18 (exp)

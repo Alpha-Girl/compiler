@@ -41,6 +41,11 @@ UMINUS的优先级高于其他算符。
     yypact:描述状态部分的动作表的索引；
     yypgoto:
     （2）简述yyparse()的主要流程，指出标号yysetstate、yybackup、yydefault、yyreduce处的代码主要在做什么方面的处理
+    yyparse()主要流程：
+    yysetstate：
+    yybackup：
+    yydefault:
+    yyreduce:
     
 3、请阅读labBison/config/expr1.y，并在labBison/下执行make expr1，然后检查输出的src/expr1.output，你将看到其中State 11和 State 24还包含有冲突，请说明冲突的原因。
 State 11 移进归约冲突
