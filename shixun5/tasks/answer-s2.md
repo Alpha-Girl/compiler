@@ -31,21 +31,27 @@ UMINUS的优先级高于其他算符。
     （1）指出以下符号的含义：yyss、yyvs、yyn、yytoken、yyval、yydefact、yydefgoto、yytable、yycheck、yypact、yypgoto；
     yyss：状态栈的栈底指针；
     yyvs：语义值栈的栈底指针；
-    yyn：规则数；
+    yyn：用于判断该状态下是否需查看下一终结符才能决定动作；综合当前状态和缓冲区队列头部终结符的信息；判断需要移进还是归约；
     yytoken:用于表示当前向前看的记号是哪个记号(用对应的记号表中的记号表示)；
     yyval:用于返回语义值；
-    yydefact:对应状态的默认规约数，为0表示错误；
-    yydefgoto:默认状态转移表；
-    yytable:动作表，决定规约/移进；
-    yycheck:
+    yydefact:对应状态的默认动作，为0表示错误；
+    yydefgoto:由产生式左部符号唯一确定的默认状态转移表；
+    yytable:动作表，决定规约/移进，为0时错误，大于0移进，对应状态值，小于0归约，归约根据的规则为其值的相反数；
+    yycheck:用于辅助计算状态转移
     yypact:描述状态部分的动作表的索引；
-    yypgoto:
+    yypgoto:归约时产生式左部非终结符编码，用于计算归约之后状态如何转移
     （2）简述yyparse()的主要流程，指出标号yysetstate、yybackup、yydefault、yyreduce处的代码主要在做什么方面的处理
     yyparse()主要流程：
-    yysetstate：
-    yybackup：
-    yydefault:
-    yyreduce:
+    1.初始化
+    2.设置新的状态，执行相关操作
+    3.根据向后看的内容 决定归约/移进/默认操作/出错处理
+    4.若出错，跳转至对应模块
+    5.状态转移，转2
+    6.处理完 return
+    yysetstate：进入一个新的状态，执行相关操作
+    yybackup:回退，当向前看的记号不在当前状态的可能后继中。
+    yydefault:执行当前状态的默认动作
+    yyreduce:执行一个归约。
     
 3、请阅读labBison/config/expr1.y，并在labBison/下执行make expr1，然后检查输出的src/expr1.output，你将看到其中State 11和 State 24还包含有冲突，请说明冲突的原因。
 State 11 移进归约冲突
@@ -79,7 +85,7 @@ highfact : fact                   { $$ = $1;        }
         | MINUS fact             { $$ = -$2;       }
 fact    : NUMBER                 { $$ = $1;        }
         | fact EXPON fact        { $$ = pow($1,$3);}
-        | LB exp RB              { $$ = $2;        }
+        | LB exp RB              { $$ = pow($2,$4);}
         ;
 
 此时的冲突：
