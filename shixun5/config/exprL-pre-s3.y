@@ -74,7 +74,7 @@ input   :
 	  { lineno ++; }
         |  
           input
-	  { printf("Line %d:\n\t", lineno++, @1.last_line);
+	  { printf("Line %d:\n\t", lineno++);
 	  }
           line
         ;

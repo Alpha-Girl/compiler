@@ -1403,7 +1403,7 @@ yyreduce:
 
   case 6:
 #line 84 "config/exprL-s3.y" /* yacc.c:1646  */
-    { printf(" %s= %g at line %d\n",(yyvsp[-1].node).message,(yyvsp[-1].node).value,(yylsp[-1]).last_line);}
+    { printf("%s  = %g at line %d\n",(yyvsp[-1].node).message,(yyvsp[-1].node).value,(yylsp[-1]).last_line);}
 #line 1408 "src/exprL-s3.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1421,19 +1421,19 @@ yyreduce:
 
   case 9:
 #line 88 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value - (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");char s[3]=" -\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);     }
+    { (yyval.node).value = (yyvsp[-2].node).value - (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" -\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);     }
 #line 1426 "src/exprL-s3.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
 #line 89 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value * (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");char s[3]=" *\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
+    { (yyval.node).value = (yyvsp[-2].node).value * (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" *\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
 #line 1432 "src/exprL-s3.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 90 "config/exprL-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value / (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");char s[3]=" /\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
+    { (yyval.node).value = (yyvsp[-2].node).value / (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" /\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
 #line 1438 "src/exprL-s3.tab.c" /* yacc.c:1646  */
     break;
 

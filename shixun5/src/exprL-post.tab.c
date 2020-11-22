@@ -62,9 +62,11 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 7 "config/exprL-pre-s3.y" /* yacc.c:339  */
+#line 14 "config/exprL-post.y" /* yacc.c:339  */
 
- 
+#ifdef DEBUG
+#undef DEBUG
+#endif 
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -109,7 +111,7 @@ char* itoa(int num,char* str,int radix)
     return str;
 }
 
-#line 113 "src/exprL-pre-s3.tab.c" /* yacc.c:339  */
+#line 115 "src/exprL-post.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -128,9 +130,9 @@ char* itoa(int num,char* str,int radix)
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "exprL-pre-s3.tab.h".  */
-#ifndef YY_YY_SRC_EXPRL_PRE_S3_TAB_H_INCLUDED
-# define YY_YY_SRC_EXPRL_PRE_S3_TAB_H_INCLUDED
+   by #include "exprL-post.tab.h".  */
+#ifndef YY_YY_SRC_EXPRL_POST_TAB_H_INCLUDED
+# define YY_YY_SRC_EXPRL_POST_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -171,13 +173,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 54 "config/exprL-pre-s3.y" /* yacc.c:355  */
+#line 63 "config/exprL-post.y" /* yacc.c:355  */
 
   struct ASTNode node;
   float val;
   char *op;
 
-#line 181 "src/exprL-pre-s3.tab.c" /* yacc.c:355  */
+#line 183 "src/exprL-post.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -204,11 +206,11 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_SRC_EXPRL_PRE_S3_TAB_H_INCLUDED  */
+#endif /* !YY_YY_SRC_EXPRL_POST_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 212 "src/exprL-pre-s3.tab.c" /* yacc.c:358  */
+#line 214 "src/exprL-post.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -508,8 +510,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    74,    74,    77,    76,    82,    83,    85,    86,    87,
-      88,    89,    90,    91,    93
+       0,    83,    83,    86,    85,    91,    92,    94,    95,    96,
+      97,    98,    99,   100,   101
 };
 #endif
 
@@ -1383,81 +1385,80 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 74 "config/exprL-pre-s3.y" /* yacc.c:1646  */
+#line 83 "config/exprL-post.y" /* yacc.c:1646  */
     { lineno ++; }
-#line 1389 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1391 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 77 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { printf("Line %d:\n\t", lineno++);
+#line 86 "config/exprL-post.y" /* yacc.c:1646  */
+    { printf("Line %d (%d):\t", lineno++, (yylsp[0]).last_line);
 	  }
-#line 1396 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1398 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 82 "config/exprL-pre-s3.y" /* yacc.c:1646  */
+#line 91 "config/exprL-post.y" /* yacc.c:1646  */
     { printf("\n");}
-#line 1402 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1404 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 83 "config/exprL-pre-s3.y" /* yacc.c:1646  */
+#line 92 "config/exprL-post.y" /* yacc.c:1646  */
     { printf("%s  = %g at line %d\n",(yyvsp[-1].node).message,(yyvsp[-1].node).value,(yylsp[-1]).last_line);}
-#line 1408 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1410 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 85 "config/exprL-pre-s3.y" /* yacc.c:1646  */
+#line 94 "config/exprL-post.y" /* yacc.c:1646  */
     { (yyval.node).value = (yyvsp[0].val);itoa((yyvsp[0].val),(yyval.node).message,10);        }
-#line 1414 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1416 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 86 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value + (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);strcpy((yyval.node).message," + ");strcat((yyval.node).message,(yyvsp[-2].node).message);   }
-#line 1420 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 95 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = (yyvsp[-2].node).value + (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" +\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);   }
+#line 1422 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 87 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value - (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);strcpy((yyval.node).message," - ");strcat((yyval.node).message,(yyvsp[-2].node).message);    }
-#line 1426 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 96 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = (yyvsp[-2].node).value - (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" -\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);     }
+#line 1428 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 88 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value * (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);strcpy((yyval.node).message," * ");strcat((yyval.node).message,(yyvsp[-2].node).message);   }
-#line 1432 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 97 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = (yyvsp[-2].node).value * (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" *\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
+#line 1434 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 89 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = (yyvsp[-2].node).value / (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);strcpy((yyval.node).message," / ");strcat((yyval.node).message,(yyvsp[-2].node).message);   }
-#line 1438 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 98 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = (yyvsp[-2].node).value / (yyvsp[0].node).value;strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[3]=" /\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message);    }
+#line 1440 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 90 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = -(yyvsp[0].node).value;strcpy((yyval.node).message," - ");strcat((yyval.node).message,(yyvsp[0].node).message);       }
-#line 1444 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 99 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = -(yyvsp[0].node).value;char s[3]=" -\0";strcat((yyvsp[0].node).message,s);strcpy((yyval.node).message,(yyvsp[0].node).message);        }
+#line 1446 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 91 "config/exprL-pre-s3.y" /* yacc.c:1646  */
-    { (yyval.node).value = pow((yyvsp[-2].node).value,(yyvsp[0].node).value);strcpy((yyval.node).message," ** ");strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);
-                                  strcat((yyval.node).message,(yyvsp[-2].node).message);}
-#line 1451 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 100 "config/exprL-post.y" /* yacc.c:1646  */
+    { (yyval.node).value = pow((yyvsp[-2].node).value,(yyvsp[0].node).value);strcat((yyvsp[-2].node).message," ");strcat((yyvsp[-2].node).message,(yyvsp[0].node).message);char s[4]=" **\0";strcat((yyvsp[-2].node).message,s);strcpy((yyval.node).message,(yyvsp[-2].node).message); }
+#line 1452 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 93 "config/exprL-pre-s3.y" /* yacc.c:1646  */
+#line 101 "config/exprL-post.y" /* yacc.c:1646  */
     { (yyval.node).value = (yyvsp[-1].node).value;strcpy((yyval.node).message,(yyvsp[-1].node).message);        }
-#line 1457 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1458 "src/exprL-post.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1461 "src/exprL-pre-s3.tab.c" /* yacc.c:1646  */
+#line 1462 "src/exprL-post.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1692,7 +1693,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 96 "config/exprL-pre-s3.y" /* yacc.c:1906  */
+#line 104 "config/exprL-post.y" /* yacc.c:1906  */
 
 
 void yyerror(const char *message)
@@ -1705,4 +1706,6 @@ int main(int argc, char *argv[])
   yyparse();
   return(0);
 }
+
+
 

@@ -41,11 +41,13 @@ UMINUS的优先级高于其他算符。
     yypact:描述状态部分的动作表的索引；
     yypgoto:
     （2）简述yyparse()的主要流程，指出标号yysetstate、yybackup、yydefault、yyreduce处的代码主要在做什么方面的处理
+    
 3、请阅读labBison/config/expr1.y，并在labBison/下执行make expr1，然后检查输出的src/expr1.output，你将看到其中State 11和 State 24还包含有冲突，请说明冲突的原因。
 State 11 移进归约冲突
-在状态11下，若下一个为EXPON，则出现二义性，可以理解为（-3）** 2，也可以理解为-（3 ** 2），bison的解决方案是选择移进，即选择后者。
+在状态11下，若下一个为EXPON，则出现二义性，可以理解为（-3）** 2，也可以理解为-（3 ** 2），bison的解决方案是选择移进，即选择后者，因为MINUS的优先级低于EXPON。
 
-State 24
+State 24 移进归约冲突
+在状态24下，若下一个为EXPON，则出现二义性，可以理解为3**(2** 3),也可以理解为(3** 2) ** 3,bison的解决方案是选择移进，选择前者，因为EXPON是右结合。
 
 4、请编写labBison/config/expr1-s2.y（已提供的内容与labBison/config/expr1.y一样），请修改文法使得用Bison处理后的src/expr2.output
 不再出现任何Conflict，在文档中说明你的解题思路。
@@ -96,3 +98,60 @@ t       : EXPON fact  {$$=$2;}
         ;
 便可以实现先移进再归约。
 此时，就不再出现冲突。
+
+5、请自行用一个句子解释用生成的expr分析器分析的过程，分别基于expr.y和expr1-s2.y文法文件构造的分析器。
+5+-4**2**2*3/2
+expr.y:
+$                        NUMBER PLUS MINUS NUMBER EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$   goto State 1
+$ NUMBER                   PLUS MINUS NUMBER EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$     goto State 3
+$ exp                           PLUS MINUS NUMBER EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$      reduce exp:NUMBER goto State 8
+$ exp  PLUS                          MINUS NUMBER EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 11
+$ exp  PLUS MINUS                          NUMBER EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 4
+$ exp  PLUS MINUS NUMBER                          EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 3
+$ exp  PLUS MINUS exp                             EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ reduce exp:NUMBER goto State 9
+$ exp  PLUS exp                                   EXPON NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ reduce exp:MINUS exp goto State 18
+$ exp  PLUS exp EXPON                                   NUMBER EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 15
+$ exp  PLUS exp EXPON NUMBER                                   EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 3
+$ exp  PLUS exp EXPON exp                                      EXPON NUMBER MULT NUMBER DIV NUMBER$ goto State 22
+$ exp  PLUS exp EXPON exp EXPON                                      NUMBER MULT NUMBER DIV NUMBER$ goto State 15
+$ exp  PLUS exp EXPON exp EXPON NUMBER                                      MULT NUMBER DIV NUMBER$ goto State 3
+$ exp  PLUS exp EXPON exp EXPON exp                                         MULT NUMBER DIV NUMBER$ goto State 22
+$ exp  PLUS exp EXPON exp                                                   MULT NUMBER DIV NUMBER$ reduce exp: exp EXPON exp goto State 22
+$ exp  PLUS exp                                                             MULT NUMBER DIV NUMBER$ reduce exp: exp EXPON exp goto State 18
+$ exp  PLUS exp MULT                                                             NUMBER DIV NUMBER$ goto State 13
+$ exp  PLUS exp MULT NUMBER                                                             DIV NUMBER$ goto State 3
+$ exp  PLUS exp MULT exp                                                                DIV NUMBER$ reduce exp: NUMBER goto State 20
+$ exp  PLUS exp                                                                         DIV NUMBER$ reduce exp: exp MULT exp goto State 18
+$ exp  PLUS exp DIV                                                                         NUMBER$  goto State 14
+$ exp  PLUS exp DIV NUMBER                                                                        $  goto State 3
+$ exp  PLUS exp DIV exp                                                                           $  goto State 21
+$ exp  PLUS exp                                                                                   $  reduce: exp : exp DIV exp goto State 18
+$ exp                                                                                             $  reduce: exp : exp PLUS exp goto State 16
+$ line                                                                                            $  reduce: line: exp EOL goto State 7
+$ input                                                                                           $  reduce: input: input line goto State 1
+$ input $end                                                                                      $  go to State 2(accpet) 
+
+5 + - 4 * 2
+expr1-s2.y
+$                   NUMBER PLUS MINUS NUMBER MULT NUMBER$
+$ input             NUMBER PLUS MINUS NUMBER MULT NUMBER$ go to State 1
+$ input NUMBER             PLUS MINUS NUMBER MULT NUMBER$ go to State 3
+$ input fact               PLUS MINUS NUMBER MULT NUMBER$ reduce: fact:NUMBER go to State 10
+$ input term               PLUS MINUS NUMBER MULT NUMBER$ reduce: term:fact go to State 9
+$ input exp                PLUS MINUS NUMBER MULT NUMBER$ reduce: exp:term go to State 8
+$ input exp PLUS                MINUS NUMBER MULT NUMBER$ reduce: exp:term go to State 13
+$ input exp PLUS  MINUS               NUMBER MULT NUMBER$ go to State 4
+$ input exp PLUS  MINUS NUMBER               MULT NUMBER$ go to State 3
+$ input exp PLUS  MINUS fact                 MULT NUMBER$ reduce: fact:NUMBER go to State 11
+$ input exp PLUS  fact                       MULT NUMBER$ reduce:  fact: MINUS fact go to State 10
+$ input exp PLUS  term                       MULT NUMBER$ reduce:  term: fact go to State 20
+$ input exp PLUS  term MULT                       NUMBER$ go to State 16
+$ input exp PLUS  term MULT NUMBER                      $ go to State 3
+$ input exp PLUS  term MULT fact                        $ reduce: fact:NUMBER go to State 22
+$ input exp PLUS  term                                  $ reduce: term: term MULT fact go to State 20
+$ input exp                                             $ reduce: exp: exp PLUS term go to State 8
+$ input exp EOL                                         $ go to State 15
+$ input line                                            $ reduce: line: exp EOL go to State 7
+$ input                                                 $ reduce: input: input line go to State 1
+$ input $end                                            $ reduce: input: input line go to State 2
+accept
