@@ -48,7 +48,7 @@ term    : term MULT highfact         { $$ = $1 * $3;   }
 highfact : fact                   { $$ = $1;        }
         | MINUS fact             { $$ = -$2;       }
 fact    : NUMBER t                { $$ = pow($1,$2);        }
-        | LB exp RB t             { $$ = $2;        }
+        | LB exp RB t             { $$ = pow($2,$4);        }
         ;
 t       : EXPON fact  {$$=$2;}
         |               {$$=1;}

@@ -53,7 +53,8 @@ extern int yydebug;
     EXPON = 263,
     EOL = 264,
     LB = 265,
-    RB = 266
+    RB = 266,
+    UMINUS = 267
   };
 #endif
 /* Tokens.  */
@@ -66,19 +67,19 @@ extern int yydebug;
 #define EOL 264
 #define LB 265
 #define RB 266
+#define UMINUS 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 57 "config/exprL-s3.y" /* yacc.c:1909  */
+#line 14 "config/expr1-s2.y" /* yacc.c:1909  */
 
-  struct ASTNode node;
-  float val;
-  char *op;
+   float val;
+   char *op;
 
-#line 82 "src/expr1-s2.tab.h" /* yacc.c:1909  */
+#line 83 "src/expr1-s2.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -12,7 +12,7 @@ YACC     = bison
 
 EXPRLEX  = expr
 
-all: expr expr1 exprL-pre-s3 exprL-s3
+all: expr expr1 exprL-pre-s3 exprL-s3 expr1-s2
 
 # Generate a compiler for a simple expression language,
 # expr: the grammar is ambiguous, and uses precedence declarations
