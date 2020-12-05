@@ -54,6 +54,7 @@ struct UnaryExpr;
 struct LVal;
 struct Literal;
 
+struct FuncCall;
 struct Stmt;
 struct VarDef;
 struct AssignStmt;
@@ -97,12 +98,14 @@ struct FuncDef : GlobalDef
 // Virtual base of expressions.
 struct Expr : virtual Node
 {
+    std::string name;
     virtual void accept(Visitor &visitor) = 0;
 };
 
 // Expression like `lhs op rhs`.
 struct BinaryExpr : Expr
 {
+    std::string name;
     BinOp op;
     Ptr<Expr> lhs, rhs;
     virtual void accept(Visitor &visitor) override final;
@@ -111,6 +114,7 @@ struct BinaryExpr : Expr
 // Expression like `op rhs`.
 struct UnaryExpr : Expr
 {
+    std::string name;
     UnaryOp op;
     Ptr<Expr> rhs;
     virtual void accept(Visitor &visitor) override final;
@@ -127,9 +131,16 @@ struct LVal : Expr
 // Expression constructed by a literal number.
 struct Literal : Expr
 {
+    std::string name;
     bool is_int;
     int int_const;
     double float_const;
+    virtual void accept(Visitor &visitor) override final;
+};
+
+struct FuncCall : Expr
+{
+    std::string name;
     virtual void accept(Visitor &visitor) override final;
 };
 
@@ -164,6 +175,7 @@ struct AssignStmt : Stmt
 struct FuncCallStmt : Stmt
 {
     std::string name;
+    Ptr<Expr> exp;
     virtual void accept(Visitor &visitor) override final;
 };
 
@@ -197,6 +209,7 @@ public:
     virtual void visit(UnaryExpr &node) = 0;
     virtual void visit(LVal &node) = 0;
     virtual void visit(Literal &node) = 0;
+    virtual void visit(FuncCall &node) = 0;
     virtual void visit(ReturnStmt &node) = 0;
     virtual void visit(VarDef &node) = 0;
     virtual void visit(AssignStmt &node) = 0;

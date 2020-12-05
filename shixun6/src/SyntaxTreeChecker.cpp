@@ -16,7 +16,9 @@ void SyntaxTreeChecker::visit(BinaryExpr &node) {}
 void SyntaxTreeChecker::visit(UnaryExpr &node) {}
 void SyntaxTreeChecker::visit(LVal &node) {}
 void SyntaxTreeChecker::visit(Literal &node) {}
+   void SyntaxTreeChecker::visit(FuncCall &node){}
 void SyntaxTreeChecker::visit(ReturnStmt &node) {}
+
 void SyntaxTreeChecker::visit(VarDef &node)
 {
     if (declare_variable(node.name, node.is_constant, node.btype, std::vector<int>()))

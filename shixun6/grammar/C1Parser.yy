@@ -262,9 +262,9 @@ Stmt:LVal ASSIGN Exp SEMICOLON{
     $$ = temp;
     $$->loc = @$;
   }
-  | IDENTIFIER LPARENTHESE RPARENTHESE SEMICOLON{
+  | Exp SEMICOLON{
     auto temp = new SyntaxTree::FuncCallStmt();
-    temp->name = $1;
+    temp->exp=SyntaxTree::Ptr<SyntaxTree::Expr>($1);;
     $$ = temp;
     $$->loc = @$;
   }
@@ -360,7 +360,15 @@ Exp:PLUS Exp %prec UPLUS{
   | LPARENTHESE Exp RPARENTHESE{
     $$ = $2;
   }
+  | IDENTIFIER LPARENTHESE RPARENTHESE{
+    auto temp = new SyntaxTree::FuncCall();
+    temp->name = $1;
+    temp->name = $1;
+    $$ = temp;
+    $$->loc = @$;
+  }
   | LVal{
+    $$->name=$1->name;
     $$ = $1;
   }
   | Number{

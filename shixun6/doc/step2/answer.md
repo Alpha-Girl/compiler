@@ -8,12 +8,17 @@ include/SyntaxTree.h中声明了Type,BinOp,UnaryOp枚举类，分别表示类型
 
 src/SyntaxTree.cpp中的方法用于访问上述结点(预留接口)。
 
-2. 请阅读src/C1Driver.cpp、src/main.cpp并浏览grammar目录下C1语言的词法描述文件C1Parser.ll和文法描述文件C1Parser.yy，简述C1Driver类与词法分析类和语法分析类之间的关系，词法分析类和语法分析类与C1Parser.ll和C1Parser.yy之间的对应关系。
+1. 请阅读src/C1Driver.cpp、src/main.cpp并浏览grammar目录下C1语言的词法描述文件C1Parser.ll和文法描述文件C1Parser.yy，简述C1Driver类与词法分析类和语法分析类之间的关系，词法分析类和语法分析类与C1Parser.ll和C1Parser.yy之间的对应关系。
 
-理解bison文法文件C1Parser.yy，描述其中至少3种非终结符的产生式定义及其相关的AST语法树生成的实现，你需要从下列非终结符中挑选要描述的产生式定义以及AST语法树的生成：
+C1Driver类与词法分析类和语法分析类之间是依赖关系，C1Driver类的实现基于词法分析类和语法分析类的方法。
+词法分析类对应于C1Parser.ll，语法分析类对应于C1Parser.yy。
+
+1. 理解bison文法文件C1Parser.yy，描述其中至少3种非终结符的产生式定义及其相关的AST语法树生成的实现，你需要从下列非终结符中挑选要描述的产生式定义以及AST语法树的生成：
 
 CompUnit、ConstDecl、ConstDef、VarDef、FuncDef、Stmt、Exp
-理解include/SyntaxTreePrinter.h和src/SyntaxTreePrinter.cpp文件，描述访问者模式在这个类中的体现：
+
+
+1. 理解include/SyntaxTreePrinter.h和src/SyntaxTreePrinter.cpp文件，描述访问者模式在这个类中的体现：
 1）请说明SyntaxTreePrinter和SyntaxTree::Visitor以及语法树节点三者之间的关系；
 2）请说明SyntaxTreePrinter访问者是如何处理VarDef、BinaryExpr、BlockStmt、FuncDef这几类语法树节点的。
 

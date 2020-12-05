@@ -1,0 +1,76 @@
+任务描述
+本关任务：阅读理解 C1 语言的基本描述并回答问题。编写一些 C1 程序（请先自行保存，在后面关卡中再提交），并用现有的 C 编译器进行编译和运行。
+
+基本知识
+C1 语言是本实训要实现的实验编程语言，它是 C 语言的一个子集。它没有完善的类型系统，只有int、float和元素为int或float类型的多维数组。const描述符只能修饰非数组的全局变量。它的函数定义没有参数，只有返回值，返回值可以是int、float和void。
+
+C1 语言的文法
+C1 语言的文法采用EBNF (Extended Backus-Naur Form)表示如下：
+
+CompUnit    → [ CompUnit ] ( Decl | FuncDef ) 
+Decl        → ConstDecl 
+            | VarDecl
+ConstDecl   → 'const' BType ConstDef { ',' ConstDef } ';'
+BType       → 'int' | 'float'
+ConstDef    → Ident '=' Exp   注：必须为常量表达式
+VarDecl     → BType VarDef { ',' VarDef } ';'
+VarDef      → Ident { '[' Exp ']' }
+            | Ident {'[' Exp ']'} '=' '{' [ Exp { ',' Exp } ] '}'  注：初始化值只有扁平化的一维表示
+FuncType    → 'void' | 'int' | 'float'
+FuncDef     → FuncType Ident '(' ')' Block
+Block       → '{' { BlockItem } '}'
+BlockItem   → VarDecl 
+            | Stmt
+Stmt        → LVal '=' Exp ';'
+            | Exp ';'
+            | 'return' [ Exp ] ';'
+            | Block
+            | ';'
+LVal        → Ident {'[' Exp ']'}
+Exp         → Exp BinOp Exp
+            | UnaryOp Exp
+            | '(' Exp ')'
+            | Ident '(' ')'
+            | LVal
+            | Number
+Number      → FloatConst
+            | IntConst
+BinOp       → '+' | '−' | '*' | '/' | '%'
+UnaryOp     → '+' | '−'
+EBNF 中的符号含义
+
+[...]：内包含的为可选项；
+
+{...}：内包含的为可重复 0 次至无数次的项。
+
+C1 语言的特征
+除上述文法之外，C1 语言还具有如下特征：
+
+C1 语言中运算符的优先级及结合性与 C 语言一致；
+
+C1 语言中标识符Ident规范为 C 语言标识符规范子集，请参考 ISO/IEC 9899 第 51 页关于标识符的定义。并将该规范中非终结符identifier产生式修改为 identifier-nondigit: nondigit，这里不考虑universal-cha\fracter-name、other implementation-defined cha\fracters等；
+
+C1 语言中同名标识符的约定：
+
+全局变量和局部变量的作用域可以重叠，重叠部分局部变量优先，同名局部变量的作用域不能重叠；
+
+C1 语言中变量名可以与函数名相同。
+
+C1 语言中注释的规范与 C 语言一致，请参考ISO/IEC 9899 第 66 页关于注释的定义，其中：
+
+注：单行注释不可以使用\过行
+// ...     # 这是一个单行注释
+# 这实际是一个两行的注释
+/* ...
+*/
+C1 语言中数值常量可以是整型数IntConst，也可以是浮点数FloatConst。
+
+整型数参考ISO/IEC 9899 第 54 页关于整型常量的定义，在此基础上忽略所有后缀；
+
+浮点数参考ISO/IEC 9899第 57 页关于浮点常量的定义，在此基础上上忽略 16 进制浮点表示和所有后缀。
+
+数组：
+
+支持多维数组，但不支持const的数组
+不支持动态数组，数组声明时必须显式指定各维长度，且声明时长度表达式必须为常量表达式
+第一维不能为[]
