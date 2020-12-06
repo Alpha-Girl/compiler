@@ -4,7 +4,7 @@
 #include "SyntaxTree.h"
 #include "ErrorReporter.h"
 #include <cassert>
-
+#include <iostream>
 class SyntaxTreeChecker : public SyntaxTree::Visitor
 {
 public:
@@ -24,6 +24,7 @@ public:
     virtual void visit(SyntaxTree::EmptyStmt &node) override;
 private:
     using Type = SyntaxTree::Type;
+    
     struct Variable
     {
         bool is_const;
