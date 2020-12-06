@@ -5,6 +5,7 @@
 #include "ErrorReporter.h"
 #include <cassert>
 #include <iostream>
+#include <stack>
 class SyntaxTreeChecker : public SyntaxTree::Visitor
 {
 public:
@@ -22,9 +23,10 @@ public:
     virtual void visit(SyntaxTree::FuncCallStmt &node) override;
     virtual void visit(SyntaxTree::BlockStmt &node) override;
     virtual void visit(SyntaxTree::EmptyStmt &node) override;
+
 private:
     using Type = SyntaxTree::Type;
-    
+
     struct Variable
     {
         bool is_const;
@@ -32,11 +34,11 @@ private:
         std::vector<int> array_length;
 
         Variable() = default;
-        Variable(bool is_const, Type btype, std::vector<int> array_length) 
+        Variable(bool is_const, Type btype, std::vector<int> array_length)
             : is_const(is_const), btype(btype), array_length(array_length) {}
     };
     using PtrVariable = std::shared_ptr<Variable>;
-    
+
     void enter_scope() { variables.emplace_front(); }
 
     void exit_scope() { variables.pop_front(); }
@@ -63,6 +65,19 @@ private:
     std::unordered_map<std::string, SyntaxTree::Type> functions;
 
     ErrorReporter &err;
+
+    struct EValue
+    {
+        Type e_type;
+        bool is_const;
+        int i_val;
+        float f_val;
+        EValue(Type e_type, bool is_const, int i_val, float f_val) : e_type(e_type), is_const(is_const),
+                                                                     i_val(i_val), f_val(f_val) {}
+    };
+    std::stack<EValue> evalue_stack;
+
+    Type ret_type_stack = Type::VOID;
 };
 
-#endif  // _C1_SYNTAX_TREE_CHECKER_H_
+#endif // _C1_SYNTAX_TREE_CHECKER_H_

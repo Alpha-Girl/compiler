@@ -363,7 +363,6 @@ Exp:PLUS Exp %prec UPLUS{
   | IDENTIFIER LPARENTHESE RPARENTHESE{
     auto temp = new SyntaxTree::FuncCall();
     temp->name = $1;
-    temp->name = $1;
     $$ = temp;
     $$->loc = @$;
   }

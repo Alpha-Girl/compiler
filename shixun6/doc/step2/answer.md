@@ -18,35 +18,35 @@ C1Driver类与词法分析类和语法分析类之间是依赖关系，C1Driver�
 CompUnit、ConstDecl、ConstDef、VarDef、FuncDef、Stmt、Exp
 
 
+
 1. 理解include/SyntaxTreePrinter.h和src/SyntaxTreePrinter.cpp文件，描述访问者模式在这个类中的体现：
+
 1）请说明SyntaxTreePrinter和SyntaxTree::Visitor以及语法树节点三者之间的关系；
+
+SyntaxTreePrinter是SyntaxTree::Visitor的子类。Visitor中的有访问语法树节点的visit()函数。
+
 2）请说明SyntaxTreePrinter访问者是如何处理VarDef、BinaryExpr、BlockStmt、FuncDef这几类语法树节点的。
 
-提供的实训代码实现的是以下的文法（其他非终结符的产生式定义与C1语言一样）:
+VarDef:
 
-Stmt        → LVal '=' Exp ';'
-         | Ident '(' ')' ';'
-         | 'return' [ Exp ] ';'
-         | Block
-         | ';'    B
-Exp         → Exp BinOp Exp
-         | UnaryOp Exp
-         | '(' Exp ')'
-         | LVal
-         | Number
-其中函数调用是作为单独的一种语句Stmt -> Ident '(' ')' ';'。
-现需要修改为C1语言的文法，即函数调用是一种表达式Exp -> Ident '(' ')'，而在语句中有特殊的表达式语句Stmt -> Exp ';'
+是否为常数 是否为数组 是否初始化 依次判断输出。
 
-Stmt        → LVal '=' Exp ';'
-         | Exp ';'
-         | 'return' [ Exp ] ';'
-         | Block
-         | ';'
-Exp         → Exp BinOp Exp
-         | UnaryOp Exp
-         | '(' Exp ')'
-         | Ident '(' ')'
-         | LVal
-         | Number
-请修改相应的代码并在SyntaxTreePrinter中进行支持。
-注：需要保持打印的格式（命令行加上-e选项），函数调用前后不需要加上括号，单个函数调用表达式也不需要；其他非终结符的产生式定义一致。
+BinaryExpr：
+
+    - 输出（
+    - 输出运算符左部
+    - 输出运算符
+    - 输出运算符右部
+    - 输出）
+
+BlockStmt:
+
+    - 输出{
+    - 输出空格(格式控制)
+    - 输出语法块内语句
+    - 输出空格(格式控制)
+    - 输出}
+
+FuncDef：
+
+    依次输出类型 空格 函数名() 以及定义函数的语法块
