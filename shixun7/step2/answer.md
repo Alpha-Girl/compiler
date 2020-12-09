@@ -2,7 +2,7 @@
 
 1） arm/switch.ll、x86/switch-m32.ll和x86/switch.ll三个文件的不同之处表现在哪些地方，分别是什么原因引起的？
 
-代码部分无区别，不同之处在target triple(目标平台不同)，llvm.module.flags(不同版本平台使用的模型的flag不同)，llvm.ident(生成.ll文件的clang版本不同)。
+代码部分无区别，不同之处在target triple，target datalayout(目标平台不同)，llvm.module.flags(不同版本平台使用的模型的flag不同)，llvm.ident(生成.ll文件的clang版本不同)。
 
 2）以arm/switch.ll为例，前后2个switch语句翻译得到的LLVM IR在结构上有区别吗？请以第1个switch语句说明其翻译得到的LLVM IR的特征。LLVM IR上引入switch语句有什么好处?
 
@@ -47,11 +47,11 @@
 	sub	w0, w0, #1          #将w0减一
 	cmp	w0, 9               #与9比较
 	bhi	.L10                #若大于则跳转至default(.L10)
-	adrp	x1, .L12        #生成一个PC相关的表，地址为x1
-	add	x1, x1, :lo12:.L12  #加上低12位地址
-	ldr	w0, [x1,w0,uxtw #2] #取出待转移的标号地址，左移2位（4字节）
-	adr	x1, .Lrtx12         #取出.Lrtx12
-	add	x0, x1, w0, sxtw #2 #算得地址，右移两位（4字节）
+	adrp	x1, .L12        #得到L2的地址除了低12位的部分
+	add	x1, x1, :lo12:.L12  #加上低12位地址，x1即为表L2的地址
+	ldr	w0, [x1,w0,uxtw #2] #取出待转移的标号的地址，w0左移2位(word为4字节)(字长)
+	adr	x1, .Lrtx12         #取出.Lrtx12,保存时减去了.Lrtx12
+	add	x0, x1, w0, sxtw #2 #加上x1(.Lrtx12)算得地址，w0右移两位(4字节)(还原回PC地址)
 	br	x0                  #跳转到对应地址
 .Lrtx12:
 	.section	.rodata
