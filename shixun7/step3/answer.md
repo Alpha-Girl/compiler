@@ -221,3 +221,14 @@ f2:
 f3:
   %rbp
   无临时变量
+
+
+请写1个或多个C程序step3/func*.c，它包含返回类型为float、double的两个函数，存在形参与实参类型不一致的情况（如int和float、int和long、long和double等），分析它们在LLVM IR、ARM汇编、x86（32位和64位）下的不同特点，结合可执行程序分析形参数、变量的地址和存储单元的内容。
+
+- LLVM: f1分配空间，存参数；取出参数，执行类型转换并保存；调用f2，对返回值进行类型转换，返回。f2同理。
+  
+- arm：实现思路与LLVM中相同，scvtf指令实现int到float的转换，fcvt实现double到float的转换。s0是单精度寄存器，保存float类型，d0是双精度寄存器，保存double类型。long是64位。
+  
+- 32位：使用了fildl将参数压入栈，fstps将参数转换成float类型，flds压单精度数入栈，代码结构相同，指令实现与平台相关。
+
+- 64位：实现思路与LLVM中相同，在调用前先进行类型转换，cvtsi2ss实现int到float的类型转换，同时保存单精度浮点数的寄存器(%xmm0)也与之前用的不同。cvtsd2ss实现double到float的转换。
