@@ -1,0 +1,21 @@
+01, main() is undefined, 01_undefined.c1
+02, redefinition of xxx, 02_redef.c1
+03, return type of main() should be int, 03_main_re.c1
+04, BinaryOp should not use for void type, 04_void.c1
+05, % should use by int, 05_mod.c1
+06, xxx type should not be void, 06_void.c1
+07, xxx undefined, 07_undefined.c1
+08, xxx is an array, 08_array.c1
+09, xxx is not an array, 09_array.c1
+10, xxx array length incorrect, 10_array.c1
+11, xxx type of index of array should be int, 11_array.c1
+12, xxx array overflow, 12_array.c1
+13, xxx undefined function, 13_undefined.c1
+14, return type should not be void, 14_return.c1
+15, return type incorrect, 15_return.c1
+16, xxx initialize error, 16_ini.c1
+17, xxx index of array should be int and const, 17_ini.c1
+18, xxx initialize length is too long, 18_ini.c1
+19, initialize error may have unexpected type or is not const, 19_ini.c1
+20, type of left hand side of the assignstmt should not be const, 20_assign.c1
+21, type of right hand side of the assignstmt should not be void, 21_assign.c1

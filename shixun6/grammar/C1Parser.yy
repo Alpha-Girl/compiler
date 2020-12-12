@@ -367,7 +367,6 @@ Exp:PLUS Exp %prec UPLUS{
     $$->loc = @$;
   }
   | LVal{
-    $$->name=$1->name;
     $$ = $1;
   }
   | Number{
