@@ -17,7 +17,25 @@ C1Driver类与词法分析类和语法分析类之间是依赖关系，C1Driver�
 
 CompUnit、ConstDecl、ConstDef、VarDef、FuncDef、Stmt、Exp
 
+ConstDecl： 常量声明
 
+CONST DefType ConstDefList SEMICOLON ：const 类型 定义的常量a=x1(,b=x2...) ;
+
+节点指向常量定义列表，在生成这个节点后确定该列表中定义常量的类型。
+
+ConstDef: 常量定义
+
+IDENTIFIER ASSIGN Exp 常量名 = 表达式
+
+节点生成 is_constant 和 is_inited 置为true， 表示是常量且已初始化。
+
+name即为IDENTIFIER，初始化的值为Exp的值。
+
+FuncDef： 函数定义
+
+DefType IDENTIFIER LPARENTHESE RPARENTHESE Block ：类型 函数名 () {函数体}
+
+该节点的ret_type为返回值类型，name为函数名，body指向函数体。
 
 1. 理解include/SyntaxTreePrinter.h和src/SyntaxTreePrinter.cpp文件，描述访问者模式在这个类中的体现：
 
